@@ -8,6 +8,7 @@
 //  </auto-generated>
 // -----------------------------------------------------------------------------
 
+using System.Data.SqlTypes;
 using Terminal.Gui;
 
 namespace MCSM {
@@ -29,7 +30,27 @@ namespace MCSM {
         public MainForm() {
             InitMenuNTabs();
         }
-        
+
+        public override bool ProcessHotKey (KeyEvent keyEvent)
+		{
+			if (base.ProcessHotKey (keyEvent)) {
+				return true;
+			}
+
+			if (this.IsMdiChild && Application.Top.ProcessHotKey (keyEvent)) {
+				return true;
+			}
+            if ((int)keyEvent.KeyValue + 2147483648 == (int)Key.a){
+                tabView2.SetFocus();
+                return true;
+            }
+            if ((int)keyEvent.KeyValue + 2147483648 == (int)Key.d){
+                tabView.SetFocus();
+                return true;
+            }
+			return false;
+		}
+
     }
 
 }

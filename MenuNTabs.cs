@@ -1,11 +1,12 @@
 namespace MCSM;
 
+using System.Runtime.CompilerServices;
 using Terminal.Gui;
 
 partial class MainForm{
     void InitMenuNTabs(){
         InitializeComponent();
-        InitFastMonitorArea();
+        InitHintArea();
         InitTabs();
         InitServMenu();
         InitEnvMenu();
@@ -67,7 +68,7 @@ partial class MainForm{
         };
     }
     void InitToolMenu(){
-
+        
     }
     void InitAboutMenu(){
 
@@ -86,17 +87,27 @@ partial class MainForm{
     }
     void InitQuickTab(){
         Terminal.Gui.TabView.Tab tabView2tab1;
-        tabView2tab1 = new Terminal.Gui.TabView.Tab("Tab1", new View());
+        tabView2tab1 = new Terminal.Gui.TabView.Tab("QuickCommands", new QuickCommand());
         tabView2tab1.View.Width = Dim.Fill();
         tabView2tab1.View.Height = Dim.Fill();
         tabView2.AddTab(tabView2tab1, false);
         Terminal.Gui.TabView.Tab tabView2tab2;
-        tabView2tab2 = new Terminal.Gui.TabView.Tab("Tab2", new View());
+        tabView2tab2 = new Terminal.Gui.TabView.Tab("Mods", new View());
         tabView2tab2.View.Width = Dim.Fill();
         tabView2tab2.View.Height = Dim.Fill();
         tabView2.AddTab(tabView2tab2, false);
     }
-    void InitFastMonitorArea(){
-        
+    void InitHintArea(){
+        MainProc.label.Width = 47;
+        MainProc.label.Height = 7;
+        MainProc.label.X = 1;
+        MainProc.label.Y = 0;
+        MainProc.label.Visible = true;
+        MainProc.label.Data = "label";
+        MainProc.label.Text = "Welcome to MCSM";
+        MainProc.label.Text += Environment.NewLine;
+        MainProc.label.Text += "Menu = Alt + (Highlight Letters)";
+        MainProc.label.TextAlignment = Terminal.Gui.TextAlignment.Left;
+        this.frameView.Add(MainProc.label);
     }
 }

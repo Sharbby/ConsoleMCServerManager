@@ -35,7 +35,7 @@ namespace MCSM {
         
         private Terminal.Gui.MenuItem editMeMenuItem3;
         
-        private Terminal.Gui.MenuBarItem settingsMenu;
+        private Terminal.Gui.MenuBarItem settIngsMenu;
         
         private Terminal.Gui.MenuItem editMeMenuItem4;
         
@@ -65,6 +65,7 @@ namespace MCSM {
             this.frameView.TextAlignment = Terminal.Gui.TextAlignment.Left;
             this.frameView.Title = "Minecraft Server Console Manager";
             this.Add(this.frameView);
+            
             this.tabView.Width = Dim.Fill(0);
             this.tabView.Height = Dim.Fill(0);
             this.tabView.X = 50;
@@ -79,7 +80,7 @@ namespace MCSM {
             this.tabView.ApplyStyleChanges();
             this.Add(this.tabView);
             this.tabView2.Width = 50;
-            this.tabView2.Height = Dim.Fill();
+            this.tabView2.Height = Dim.Fill(0);
             this.tabView2.X = 0;
             this.tabView2.Y = 10;
             this.tabView2.Visible = true;
@@ -89,7 +90,6 @@ namespace MCSM {
             this.tabView2.Style.ShowBorder = true;
             this.tabView2.Style.ShowTopLine = true;
             this.tabView2.Style.TabsOnBottom = false;
-            
             this.tabView2.ApplyStyleChanges();
             this.Add(this.tabView2);
             this.menuBar.Width = Dim.Fill(0);
@@ -120,18 +120,18 @@ namespace MCSM {
             this.editMeMenuItem3.Data = "editMeMenuItem3";
             this.toolsMenu.Children = new Terminal.Gui.MenuItem[] {
                     this.editMeMenuItem3};
-            this.settingsMenu = new Terminal.Gui.MenuBarItem();
-            this.settingsMenu.Title = "Sett_ings";
+            this.settIngsMenu = new Terminal.Gui.MenuBarItem();
+            this.settIngsMenu.Title = "Sett_ings";
             this.editMeMenuItem4 = new Terminal.Gui.MenuItem();
             this.editMeMenuItem4.Title = "Edit Me";
             this.editMeMenuItem4.Data = "editMeMenuItem4";
-            this.settingsMenu.Children = new Terminal.Gui.MenuItem[] {
+            this.settIngsMenu.Children = new Terminal.Gui.MenuItem[] {
                     this.editMeMenuItem4};
             this.menuBar.Menus = new Terminal.Gui.MenuBarItem[] {
                     this.serverMenu,
                     this.enviormentsMenu,
                     this.toolsMenu,
-                    this.settingsMenu};
+                    this.settIngsMenu};
             this.Add(this.menuBar);
         }
     }

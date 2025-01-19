@@ -8,6 +8,11 @@ public partial class MainProc{
     public static void Main(){
         InitServer();
         Application.Init();
-        Application.Run(new MainForm());
+        
+            Application.Run(new MainForm());
+        
+        // catch{
+        //     MessageBox.ErrorQuery("ERROR","UNKNOW ERROR","OK");
+        // }
     }
 }
