@@ -8,6 +8,7 @@ A Server GUI Based Terminal.Gui
 菜单栏
 -状态管理
 -环境设置
+-颜色设置
 
 快速视图
 -快捷命令
