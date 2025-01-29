@@ -15,19 +15,15 @@ namespace MCSM {
     public partial class MainForm {
         private OpenDialog FileOpens;
         private SaveDialog FileSave;
-        
-        
-        //服务器菜单
-        private MenuItem Start;
-        private MenuItem Stop;
-        
-        //环境菜单
-        private MenuItem SetJava;
-        private MenuItem SetServer;
-
-
 
         public MainForm() {
+            MainProc.DispStyle = new (){
+                Normal = new Terminal.Gui.Attribute(Terminal.Gui.Color.White, Terminal.Gui.Color.Black),//正常
+                HotNormal = new Terminal.Gui.Attribute(Terminal.Gui.Color.White, Terminal.Gui.Color.Black),//子视图聚焦
+                Focus = new Terminal.Gui.Attribute(Terminal.Gui.Color.White, Terminal.Gui.Color.DarkGray),//激活但失焦，后者为输入区底色
+                HotFocus = new Terminal.Gui.Attribute(Terminal.Gui.Color.White, Terminal.Gui.Color.Gray),//选中
+                Disabled = new Terminal.Gui.Attribute(Terminal.Gui.Color.DarkGray, Terminal.Gui.Color.Black)//输入区域内部颜色，后者选中时底色
+            };
             InitMenuNTabs();
         }
 

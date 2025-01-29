@@ -40,7 +40,9 @@ namespace MCSM {
         private Terminal.Gui.MenuItem editMeMenuItem4;
         
         private void InitializeComponent() {
-            this.menuBar = new Terminal.Gui.MenuBar();
+            this.menuBar = new Terminal.Gui.MenuBar(){
+                ColorScheme = MainProc.DispStyle
+            };
             this.tabView2 = new Terminal.Gui.TabView();
             this.tabView = new Terminal.Gui.TabView();
             this.frameView = new Terminal.Gui.FrameView();
@@ -65,7 +67,6 @@ namespace MCSM {
             this.frameView.TextAlignment = Terminal.Gui.TextAlignment.Left;
             this.frameView.Title = "Minecraft Server Console Manager";
             this.Add(this.frameView);
-            
             this.tabView.Width = Dim.Fill(0);
             this.tabView.Height = Dim.Fill(0);
             this.tabView.X = 50;

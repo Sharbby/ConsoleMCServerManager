@@ -19,15 +19,15 @@ public class ServerInfoView : Window{
     private CommandField ServerInput = new CommandField(){
         X = 0,
         Y = Pos.AnchorEnd() - 1,
-        Width = Dim.Fill() - 9,
+        Width = Dim.Fill() - 8,
         Height = 1
     };
     public Button SendC = new Button(){
-        Text = "EXCUTE",
+        Text = "CLEAR",
         Data = "SendC",
-        X = Pos.AnchorEnd() - 9,
+        X = Pos.AnchorEnd() - 8,
         Y = Pos.AnchorEnd() - 1,
-        Width = 8,
+        Width = 7,
         Height = 1
     }; 
     
@@ -36,10 +36,8 @@ public class ServerInfoView : Window{
         ServerInput.ColorScheme = MainProc.DispStyle;
         ServerOutput.ColorScheme = MainProc.DispStyle;
         SendC.Clicked += () => {
-            MainProc.SendCommands(ServerInput.Text);
-            ServerInput.Text = "";
+            MainProc.serverInfoView.ServerOutput.Text = "";
         };
-
         this.Add(SendC);
         this.Add(ServerOutput);
         this.Add(ServerInput);

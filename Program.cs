@@ -9,7 +9,9 @@ public partial class MainProc{
         InitServer();
         Application.Init();
         
-            Application.Run(new MainForm());
+            Application.Run(new MainForm(){
+                ColorScheme = DispStyle
+            });
         
         // catch{
         //     MessageBox.ErrorQuery("ERROR","UNKNOW ERROR","OK");
