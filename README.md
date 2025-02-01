@@ -1,5 +1,6 @@
 # ConsoleMCServerManager
 A Server GUI Based Terminal.Gui
+![X2`~WK(TKDL{GGAGJ%$I2Z6](https://github.com/user-attachments/assets/e9b0f498-c275-4440-bfcb-e115bae56180)
 
 已完成：
 
