@@ -17,7 +17,16 @@ namespace MCSM {
         
         private Terminal.Gui.ListView listView;
         
+        private Terminal.Gui.Button button;
+        
+        private Terminal.Gui.Label label;
+        
+        private Terminal.Gui.Button button2;
+        
         private void InitializeComponent() {
+            this.button2 = new Terminal.Gui.Button();
+            this.label = new Terminal.Gui.Label();
+            this.button = new Terminal.Gui.Button();
             this.listView = new Terminal.Gui.ListView();
             this.Width = Dim.Fill(0);
             this.Height = Dim.Fill(0);
@@ -26,15 +35,45 @@ namespace MCSM {
             this.Visible = true;
             this.TextAlignment = Terminal.Gui.TextAlignment.Left;
             this.listView.Width = Dim.Fill();
-            this.listView.Height = Dim.Fill();
+            this.listView.Height = Dim.Fill() - 1;
             this.listView.X = 1;
             this.listView.Y = 0;
             this.listView.Visible = true;
             this.listView.Data = "listView";
             this.listView.TextAlignment = Terminal.Gui.TextAlignment.Left;
+            this.listView.Source = null;
             this.listView.AllowsMarking = false;
             this.listView.AllowsMultipleSelection = true;
             this.Add(this.listView);
+            this.button.Width = 9;
+            this.button.Height = 1;
+            this.button.X = 1;
+            this.button.Y = Pos.AnchorEnd()-1;
+            this.button.Visible = true;
+            this.button.Data = "button";
+            this.button.Text = "SAVE";
+            this.button.TextAlignment = Terminal.Gui.TextAlignment.Centered;
+            this.button.IsDefault = false;
+            this.Add(this.button);
+            this.label.Width = 20;
+            this.label.Height = 1;
+            this.label.X = 9;
+            this.label.Y = Pos.AnchorEnd()-1;
+            this.label.Visible = true;
+            this.label.Data = "label";
+            this.label.Text = "";
+            this.label.TextAlignment = Terminal.Gui.TextAlignment.Left;
+            this.Add(this.label);
+            this.button2.Width = 10;
+            this.button2.Height = 1;
+            this.button2.X = 38;
+            this.button2.Y = Pos.AnchorEnd()-1;
+            this.button2.Visible = true;
+            this.button2.Data = "button2";
+            this.button2.Text = "RELOAD";
+            this.button2.TextAlignment = Terminal.Gui.TextAlignment.Centered;
+            this.button2.IsDefault = false;
+            this.Add(this.button2);
         }
     }
 }

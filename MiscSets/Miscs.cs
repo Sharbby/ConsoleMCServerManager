@@ -1,4 +1,5 @@
 using System.Net.Quic;
+using Terminal.Gui;
 
 namespace MCSM;
 
@@ -8,9 +9,11 @@ partial class MainProc{
     public static List<NStack.ustring> quickCommands = new List<NStack.ustring>{};//快速命令
 
     public static ServerPropertiesEditor SPE = new();
-    public static List<NStack.ustring> serverProperties = new List<NStack.ustring>{};
+    public static List<String> serverProperties = new List<string>{};
+    public static List<String> serverPropertiesValue = new List<string>{};
 
-
+    public static OpenDialog FileOpens;
+    public static SaveDialog FileSave;
     public static Terminal.Gui.ColorScheme DispStyle;
     public static void ChangeStyle(int k){
         switch(k){

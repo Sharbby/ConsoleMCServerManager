@@ -13,8 +13,6 @@ using Terminal.Gui;
 
 namespace MCSM {
     public partial class MainForm {
-        private OpenDialog FileOpens;
-        private SaveDialog FileSave;
 
         public MainForm() {
             MainProc.DispStyle = new (){

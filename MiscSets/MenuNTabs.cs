@@ -1,6 +1,6 @@
 namespace MCSM;
 
-using System.Runtime.CompilerServices;
+using System.IO;
 using Terminal.Gui;
 
 partial class MainForm{
@@ -48,29 +48,38 @@ partial class MainForm{
         SetJava = new MenuItem(){
             Title = "Set Java Path",
             Action = () => {
-                FileOpens = new OpenDialog(){
+                MainProc.FileOpens = new OpenDialog(){
                     AllowedFileTypes = new String[]{
                         "java.exe"
                     },
+                    AllowsMultipleSelection = false,
                     CanChooseDirectories = false,
                     CanChooseFiles = true,
                     Title = "Select java.exe"
                 };
-                Application.Run(this.FileOpens);
+                Application.Run(MainProc.FileOpens);
+                if (MainProc.FileOpens.FilePath != null) {
+                    MainProc.ServerPath = Path.GetFileName(MainProc.FileOpens.FilePath.ToString());
+                    MainProc.ServerPathAt = Path.GetDirectoryName(MainProc.FileOpens.FilePath.ToString());
+                }
             }
         };
         SetServer = new MenuItem(){
             Title = "Set Server Path",
             Action = () => {
-                FileOpens = new OpenDialog(){
+                MainProc.FileOpens = new OpenDialog(){
                     AllowedFileTypes = new string[]{
                         "jar"
                     },
+                    AllowsMultipleSelection = false,
                     CanChooseFiles = true,
                     CanChooseDirectories = false,
                     Title = "Select Your Server jar File"
                 };
-                Application.Run(this.FileOpens);
+                Application.Run(MainProc.FileOpens);
+                if (MainProc.FileOpens.FilePath != null) {
+                    MainProc.JavaPath = Path.GetFileName(MainProc.FileOpens.FilePath.ToString());
+                }
             }
         };
         enviormentsMenu.Children = new MenuItem[]{
@@ -102,22 +111,24 @@ partial class MainForm{
         tabViewtab1.View.Height = Dim.Fill();
         tabView.AddTab(tabViewtab1, false);
         Terminal.Gui.TabView.Tab tabViewtab2;
-        tabViewtab2 = new Terminal.Gui.TabView.Tab("FileEditor", new View());
+        tabViewtab2 = new Terminal.Gui.TabView.Tab("FileEditor", new FileEditor());
         tabViewtab2.View.Width = Dim.Fill();
         tabViewtab2.View.Height = Dim.Fill();
         tabView.AddTab(tabViewtab2, false);
     }
     void InitQuickTab(){
         Terminal.Gui.TabView.Tab tabView2tab1;
-        tabView2tab1 = new Terminal.Gui.TabView.Tab("QuickCommands", new QuickCommand());
+        tabView2tab1 = new Terminal.Gui.TabView.Tab("Q.Commands", new QuickCommand());
         tabView2tab1.View.Width = Dim.Fill();
         tabView2tab1.View.Height = Dim.Fill();
         tabView2.AddTab(tabView2tab1, false);
         Terminal.Gui.TabView.Tab tabView2tab2;
-        tabView2tab2 = new Terminal.Gui.TabView.Tab("ServerProperties", new ServerPropertiesEditor());
+        tabView2tab2 = new Terminal.Gui.TabView.Tab("Serv.Properties", new ServerPropertiesEditor());
         tabView2tab2.View.Width = Dim.Fill();
         tabView2tab2.View.Height = Dim.Fill();
         tabView2.AddTab(tabView2tab2, false);
+        Terminal.Gui.TabView.Tab tabView2tab3;
+        
     }
     void InitHintArea(){
         MainProc.label.Width = 47;

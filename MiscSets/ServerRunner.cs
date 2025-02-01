@@ -1,6 +1,6 @@
 
 using System.Diagnostics;
-using System.Formats.Asn1;
+using System.IO;
 using System.Text;
 using Terminal.Gui;
 
@@ -10,7 +10,7 @@ partial class MainProc {
     public static bool IsServerRunning = false;
     public static String JavaPath = new string("java.exe");
     public static String ServerPath = new string("server.jar");
-    public static String ServerPathAt = new string("");
+    public static String ServerPathAt = new string("");//设置服务器路径
     public static String ExtraArgs = new string("");
     public static ServerInfoView serverInfoView = new ServerInfoView();
     static Process Server = new Process();

@@ -10,16 +10,86 @@
 namespace MCSM {
     using Microsoft.VisualBasic;
     using Terminal.Gui;
-    
-    
+    using System;
+    using System.IO;
+    using System.Runtime.CompilerServices;
+
     public partial class ServerPropertiesEditor {
+        private static bool IsPropertiesOpened = false;
+        private static string FilePath;
+        private static string FileContent;
         
         public ServerPropertiesEditor() {
-            GetProperties();
             InitializeComponent();
+            GetProperties();
+            button.Clicked += () => {
+                SaveProperties();
+                label.Text = "SAVED";
+            };
+            button2.Clicked += () => {
+                IsPropertiesOpened = false;
+                label.Text = "";
+                GetProperties();
+            };
+            listView.SelectedItemChanged += (a) =>{
+                label.Text = MainProc.serverPropertiesValue[listView.SelectedItem];
+            };
+            listView.OpenSelectedItem += (a) =>{
+                if (MainProc.serverPropertiesValue[listView.SelectedItem] == "true") {
+                    MainProc.serverPropertiesValue[listView.SelectedItem] = "false";
+                    label.Text = MainProc.serverPropertiesValue[listView.SelectedItem];
+                }
+                else if (MainProc.serverPropertiesValue[listView.SelectedItem] == "false") {
+                    MainProc.serverPropertiesValue[listView.SelectedItem] = "true";
+                    label.Text = MainProc.serverPropertiesValue[listView.SelectedItem];
+                }
+                else {
+                    Application.Run(new InputDialog(listView.SelectedItem,MainProc.serverPropertiesValue));
+                    label.Text = MainProc.serverPropertiesValue[listView.SelectedItem];
+                }
+            };
         }
         void GetProperties(){
-            
+            string insertline = string.Empty;
+            bool lreaded = false;
+            if (MainProc.ServerPathAt != null) FilePath = Path.Combine(MainProc.ServerPathAt,@"server.properties");
+            else FilePath = @"server.properties";
+            IsPropertiesOpened = true;//读取文件
+            MainProc.serverProperties = new List<string>{};
+            MainProc.serverPropertiesValue = new List<string>{};
+            this.listView.SetSourceAsync(MainProc.serverProperties);
+            if (File.Exists(FilePath))
+                foreach (string line in File.ReadLines(FilePath)){
+                    insertline = string.Empty;
+                    lreaded = false;
+                    if (string.IsNullOrWhiteSpace(line)) continue;
+                    if (line[0] == '#') continue;
+                    foreach (char k in line){
+                        if (k == '=') {
+                            if (!string.IsNullOrWhiteSpace(insertline)) {
+                                MainProc.serverProperties.Add(insertline);//写左表
+                                lreaded = true;
+                                }
+                            insertline = string.Empty;
+                        }
+                        else {
+                            insertline += k;
+                        }
+                    }
+                    if (!string.IsNullOrWhiteSpace(insertline)) MainProc.serverPropertiesValue.Add(insertline);//写右表
+                    else if (lreaded) MainProc.serverPropertiesValue.Add(" ");
+                } 
+            else MessageBox.ErrorQuery("ERROR","No properties","OK");
+        }
+        void SaveProperties(){
+            int k = 0;
+            if (IsPropertiesOpened){
+                File.WriteAllText(FilePath, "#Edited By MCSM" + Environment.NewLine);
+                foreach (string line in MainProc.serverProperties){
+                    File.AppendAllText(FilePath , line + "=" + MainProc.serverPropertiesValue[k] + Environment.NewLine);
+                    k++;
+                }
+            }
         }
         
     }
