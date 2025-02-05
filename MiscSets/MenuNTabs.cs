@@ -1,7 +1,9 @@
 namespace MCSM;
 
 using System.IO;
+using System.IO.Compression;
 using Terminal.Gui;
+using System.Text.Json;
 
 partial class MainForm{
     //服务器菜单
@@ -12,6 +14,12 @@ partial class MainForm{
     private MenuItem SetJava;
     private MenuItem SetServer;
 
+    //工具
+    private MenuItem ActiveTools;
+    private MenuItem KubeJsEditor;
+    private MenuItem itemDatBse;
+    private MenuItem JsonEditor;
+    private MenuItem TranslateMaker;
     //设置
     private MenuItem SetColor;
     void InitMenuNTabs(){
@@ -21,6 +29,7 @@ partial class MainForm{
         InitServMenu();
         InitEnvMenu();
         InitSettingsMenu();
+        InitToolMenu();
         InitQuickTab();
     }
     void InitServMenu(){
@@ -88,7 +97,51 @@ partial class MainForm{
         };
     }
     void InitToolMenu(){
-        
+        ActiveTools = new MenuItem(){
+            Title = "Active Tools",
+            Action = () =>{
+                int select;
+                select = MessageBox.Query("ACTIVE TOOLS?","WARNING:THIS ACTION NEED TO UNPACK ALL MODS!","YES","CONTINUE WITHOUT UNPACK","NO");
+                if (select == 0) {
+                    Thread bgp = new(() =>{
+                        string backPath;
+                        if (String.IsNullOrEmpty(MainProc.ServerPathAt)) backPath = @"backupmods";
+                        else backPath = Path.Combine(MainProc.ServerPathAt,@"backupmods");
+                        foreach (string file in Directory.GetFiles(backPath,"*.jar")){
+                            ZipFile.ExtractToDirectory(file,Path.Combine(backPath,Path.GetFileNameWithoutExtension(file)),true); 
+                        }
+                        InitItemData();
+                        Application.MainLoop.Invoke(()=>{
+                            Application.RequestStop();
+                        });
+                    });
+                    bgp.Start();
+                    Application.Run(new WaitDialog());
+                    MessageBox.Query("DONE","DataInit Finished","OK");
+                }
+                if (select == 1){
+                    Thread bgp = new(() =>{
+                        InitItemData();
+                        Application.MainLoop.Invoke(()=>{
+                            Application.RequestStop();
+                        });
+                    });
+                    bgp.Start();
+                    Application.Run(new WaitDialog());
+                    MessageBox.Query("DONE","Unpack & DataInit Finished","OK");
+                }
+            }
+        };
+        itemDatBse = new MenuItem(){
+            Title = "Item Database",
+            Action = () =>{
+                Application.Run(MainProc.IDB);
+            }
+        };
+        toolsMenu.Children = new MenuItem[]{
+            ActiveTools,
+            itemDatBse
+        };
     }
     void InitSettingsMenu(){
         SetColor = new MenuItem(){
@@ -115,6 +168,11 @@ partial class MainForm{
         tabViewtab2.View.Width = Dim.Fill();
         tabViewtab2.View.Height = Dim.Fill();
         tabView.AddTab(tabViewtab2, false);
+        Terminal.Gui.TabView.Tab tabViewtab3;
+        tabViewtab3 = new Terminal.Gui.TabView.Tab("ModManager", new ModManage());
+        tabViewtab3.View.Width = Dim.Fill();
+        tabViewtab3.View.Height = Dim.Fill();
+        tabView.AddTab(tabViewtab3, false);
     }
     void InitQuickTab(){
         Terminal.Gui.TabView.Tab tabView2tab1;
@@ -127,7 +185,6 @@ partial class MainForm{
         tabView2tab2.View.Width = Dim.Fill();
         tabView2tab2.View.Height = Dim.Fill();
         tabView2.AddTab(tabView2tab2, false);
-        Terminal.Gui.TabView.Tab tabView2tab3;
         
     }
     void InitHintArea(){
@@ -142,5 +199,32 @@ partial class MainForm{
         MainProc.label.Text += "Menu = Alt + (Highlight Letters)";
         MainProc.label.TextAlignment = Terminal.Gui.TextAlignment.Left;
         this.frameView.Add(MainProc.label);
+    }
+    private string UnPackPath;
+    void InitItemData(){
+        if (String.IsNullOrEmpty(MainProc.ServerPathAt)) UnPackPath = "backupmods";
+        else UnPackPath = Path.Combine(MainProc.ServerPathAt,"backupmods");
+        foreach (string dir in Directory.GetDirectories(UnPackPath)){
+            string filepath = "",filepathch = "";
+            if (Directory.Exists(Path.Combine(dir,@"assets")))
+                foreach(string indir in Directory.GetDirectories(Path.Combine(dir,@"assets"))){
+                    if (File.Exists(Path.Combine(indir,@"lang\en_us.json"))) {
+                        filepath = Path.Combine(indir,@"lang\en_us.json");
+                        filepathch = Path.Combine(indir,@"lang\zh_cn.json");
+                        break;
+                    }
+                }
+            //导入翻译文件
+            if (File.Exists(filepath) && !String.IsNullOrWhiteSpace(File.ReadAllText(filepath))) try{
+                MainProc.enItemDic.AddRange(JsonSerializer.Deserialize<Dictionary<string,string>>(File.ReadAllText(filepath)));
+            }catch{
+                MessageBox.ErrorQuery("DESERILIZE FAIL!","Source:" + filepath,"SKIP");
+            }
+            if (File.Exists(filepathch) && !String.IsNullOrWhiteSpace(File.ReadAllText(filepathch))) try{
+                MainProc.zhItemDic.AddRange(JsonSerializer.Deserialize<Dictionary<string,string>>(File.ReadAllText(filepathch)));//需要进行debug
+            }catch{
+                MessageBox.ErrorQuery("DESERILIZE FAIL!","Source:" + filepathch,"SKIP");
+            }
+        }
     }
 }

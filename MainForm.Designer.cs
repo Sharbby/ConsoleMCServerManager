@@ -54,7 +54,7 @@ namespace MCSM {
             this.Modal = false;
             this.IsMdiContainer = false;
             this.TextAlignment = Terminal.Gui.TextAlignment.Left;
-            this.frameView.Width = 50;
+            this.frameView.Width = Dim.Percent(35);
             this.frameView.Height = 9;
             this.frameView.X = 0;
             this.frameView.Y = 1;
@@ -65,11 +65,11 @@ namespace MCSM {
             this.frameView.Border.Effect3DBrush = null;
             this.frameView.Border.DrawMarginFrame = true;
             this.frameView.TextAlignment = Terminal.Gui.TextAlignment.Left;
-            this.frameView.Title = "Minecraft Server Console Manager";
+            this.frameView.Title = "Minecraft Console Server Manager";
             this.Add(this.frameView);
             this.tabView.Width = Dim.Fill(0);
             this.tabView.Height = Dim.Fill(0);
-            this.tabView.X = 50;
+            this.tabView.X = Pos.Percent(35);
             this.tabView.Y = 1;
             this.tabView.Visible = true;
             this.tabView.Data = "tabView";
@@ -80,7 +80,7 @@ namespace MCSM {
             this.tabView.Style.TabsOnBottom = false;
             this.tabView.ApplyStyleChanges();
             this.Add(this.tabView);
-            this.tabView2.Width = 50;
+            this.tabView2.Width = Dim.Percent(35);
             this.tabView2.Height = Dim.Fill(0);
             this.tabView2.X = 0;
             this.tabView2.Y = 10;

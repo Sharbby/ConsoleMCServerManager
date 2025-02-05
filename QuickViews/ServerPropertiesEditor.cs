@@ -79,7 +79,6 @@ namespace MCSM {
                     if (!string.IsNullOrWhiteSpace(insertline)) MainProc.serverPropertiesValue.Add(insertline);//写右表
                     else if (lreaded) MainProc.serverPropertiesValue.Add(" ");
                 } 
-            else MessageBox.ErrorQuery("ERROR","No properties","OK");
         }
         void SaveProperties(){
             int k = 0;

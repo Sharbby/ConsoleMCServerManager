@@ -66,7 +66,7 @@ namespace MCSM {
             this.Add(this.label);
             this.button2.Width = 10;
             this.button2.Height = 1;
-            this.button2.X = 38;
+            this.button2.X = Pos.AnchorEnd() - 11;
             this.button2.Y = Pos.AnchorEnd()-1;
             this.button2.Visible = true;
             this.button2.Data = "button2";

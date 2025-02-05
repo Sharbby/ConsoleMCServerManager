@@ -7,9 +7,9 @@ using Terminal.Gui;
 
 public class ServerInfoView : Window{
     public TextView ServerOutput = new TextView(){
-        X=0,
-        Y=0,
-        Width = Dim.Fill() - 2,
+        X = 0,
+        Y = 0,
+        Width = Dim.Fill(),
         Height = Dim.Fill() - 2,
         Text = "CONSOLE IS ENABLE NOW!",
         AutoSize = true,
@@ -32,9 +32,7 @@ public class ServerInfoView : Window{
     }; 
     
     public ServerInfoView(){
-
-        ServerInput.ColorScheme = MainProc.DispStyle;
-        ServerOutput.ColorScheme = MainProc.DispStyle;
+        this.ColorScheme = MainProc.DispStyle;
         SendC.Clicked += () => {
             MainProc.serverInfoView.ServerOutput.Text = "";
         };

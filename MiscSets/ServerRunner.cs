@@ -30,11 +30,15 @@ partial class MainProc {
             }
         };
         Server.ErrorDataReceived += (s,e) => {
-
+            serverInfoView.ServerOutput.Text += e.Data;
+            serverInfoView.ServerOutput.Text += Environment.NewLine;
+            MessageBox.ErrorQuery("ERROR",e.Data,"OK");
+            serverInfoView.ServerOutput.MoveEnd();
         };
         Server.Exited += (a,b) => {
             IsServerRunning = false;
             serverInfoView.ServerOutput.Text += "Server Stopped!";
+            serverInfoView.ServerOutput.MoveEnd();
         };//他奶奶滴，为什么不触发
 
     }
@@ -72,6 +76,7 @@ partial class MainProc {
         Server.CancelErrorRead();
         Server.CancelOutputRead();
         serverInfoView.ServerOutput.Text += "Server Force Stopped!";
+        serverInfoView.ServerOutput.MoveEnd();
     }
 }
 

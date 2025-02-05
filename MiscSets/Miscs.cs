@@ -11,10 +11,17 @@ partial class MainProc{
     public static ServerPropertiesEditor SPE = new();
     public static List<String> serverProperties = new List<string>{};
     public static List<String> serverPropertiesValue = new List<string>{};
+    public static List<String> disableMods = new List<string>{};
+    public static List<String> enableMods = new List<string>{};
+
+    public static Dictionary<string,string> 
+        enItemDic = new(),
+        zhItemDic = new();
 
     public static OpenDialog FileOpens;
     public static SaveDialog FileSave;
-    public static Terminal.Gui.ColorScheme DispStyle;
+    public static Terminal.Gui.ColorScheme DispStyle = new();
+    public static ItemDataBase IDB = new();
     public static void ChangeStyle(int k){
         switch(k){
             default:
