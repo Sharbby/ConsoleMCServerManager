@@ -18,7 +18,7 @@ partial class MainForm{
     private MenuItem ActiveTools;
     private MenuItem KubeJsEditor;
     private MenuItem itemDatBse;
-    private MenuItem JsonEditor;
+    private MenuItem jsonEditor;
     private MenuItem TranslateMaker;
     //设置
     private MenuItem SetColor;
@@ -135,12 +135,20 @@ partial class MainForm{
         itemDatBse = new MenuItem(){
             Title = "Item Database",
             Action = () =>{
+                MainProc.IDB = new();
                 Application.Run(MainProc.IDB);
+            }
+        };
+        jsonEditor = new MenuItem(){
+            Title = "Json Editor",
+            Action = () =>{
+                Application.Run(new JsonEditor());
             }
         };
         toolsMenu.Children = new MenuItem[]{
             ActiveTools,
-            itemDatBse
+            itemDatBse,
+            jsonEditor
         };
     }
     void InitSettingsMenu(){

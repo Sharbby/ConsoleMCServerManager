@@ -128,14 +128,6 @@ namespace MCSM {
             this.button.TextAlignment = Terminal.Gui.TextAlignment.Centered;
             this.button.IsDefault = false;
             this.AddButton(this.button);
-            this.button2.Width = 8;
-            this.button2.Height = 1;
-            this.button2.Visible = true;
-            this.button2.Data = "button2";
-            this.button2.Text = "OK";
-            this.button2.TextAlignment = Terminal.Gui.TextAlignment.Centered;
-            this.button2.IsDefault = false;
-            this.AddButton(this.button2);
         }
     }
 }

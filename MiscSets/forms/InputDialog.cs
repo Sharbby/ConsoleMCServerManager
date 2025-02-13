@@ -12,6 +12,7 @@ namespace MCSM {
     
     
     public partial class InputDialog {
+        public string inputstring;
         public InputDialog(int index,List<string> L) {
             InitializeComponent();
             textField.Text = L[index];
@@ -21,6 +22,18 @@ namespace MCSM {
             };
             this.button2.Clicked += () => {
                 L[index] = textField.Text.ToString();
+                this.RequestStop();
+            };
+        }
+        public InputDialog(string k){
+            InitializeComponent();
+            this.textField.Text = k;
+            this.ButtonAlignment = ButtonAlignments.Justify;
+            this.button.Clicked += () =>{
+                this.RequestStop();
+            };
+            this.button2.Clicked += () => {
+                inputstring = textField.Text.ToString();
                 this.RequestStop();
             };
         }

@@ -59,3 +59,12 @@ public static class StringExtensions
         return ret.ToString();
     }
 }
+public static class lableExtentions{
+    public static string ToLable(this string k){
+        string[] parts = k.Split('.');
+        if (parts.Length < 3) throw new ArgumentException("INVALID STRING");
+        else{
+            return parts[1]+":"+parts[2];
+        }
+    }
+}

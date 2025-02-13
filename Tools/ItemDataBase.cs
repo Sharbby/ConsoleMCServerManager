@@ -20,7 +20,8 @@ namespace MCSM {
         public ItemDataBase() {
             int i;
             InitializeComponent();
-            button2.Clicked += () =>{
+            this.ColorScheme = MainProc.DispStyle;
+            listView.OpenSelectedItem += (a) =>{
                 if (Lookuplist.Count != 0) {
                     Lookuplist.Clear();
                     switch(radioGroup2.SelectedItem){
@@ -52,7 +53,6 @@ namespace MCSM {
                     returnItemLable = Lookuplist[listView.SelectedItem];
                 }
                 else returnItemLable = "";
-                //MessageBox.Query("RETURN",returnItemLable,"OK");
                 Application.RequestStop();
             };
             button.Clicked += () =>{
@@ -105,5 +105,6 @@ namespace MCSM {
                 listView.SetSourceAsync(Lookuplist);
             }; 
         }
+        
     }
 }
